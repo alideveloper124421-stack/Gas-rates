@@ -30,7 +30,14 @@ jobs:
           java-version: '17'
 
       - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+        run: |
+          echo "Using pre-installed Android SDK on GitHub-hosted runner"
+          echo "ANDROID_HOME=$ANDROID_HOME"
+          echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT"
+          # Accept all SDK licenses
+          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses > /dev/null 2>&1 ||           yes | $ANDROID_HOME/cmdline-tools/*/bin/sdkmanager --licenses > /dev/null 2>&1 || true
+          # Install required SDK components for compileSdk 35
+          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platforms;android-35" "build-tools;35.0.0" "platform-tools" ||           $ANDROID_HOME/cmdline-tools/*/bin/sdkmanager "platforms;android-35" "build-tools;35.0.0" "platform-tools"
 
       - name: Install Node Dependencies
         run: npm install
