@@ -18,10 +18,10 @@ jobs:
       - name: Checkout Source Code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node.js 22
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Setup Java 17
         uses: actions/setup-java@v4
@@ -31,13 +31,10 @@ jobs:
 
       - name: Setup Android SDK
         run: |
-          echo "Using pre-installed Android SDK on GitHub-hosted runner"
+          echo "Using pre-installed Android SDK"
           echo "ANDROID_HOME=$ANDROID_HOME"
-          echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT"
-          # Accept all SDK licenses
           yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses > /dev/null 2>&1 ||           yes | $ANDROID_HOME/cmdline-tools/*/bin/sdkmanager --licenses > /dev/null 2>&1 || true
-          # Install required SDK components for compileSdk 35
-          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platforms;android-35" "build-tools;35.0.0" "platform-tools" ||           $ANDROID_HOME/cmdline-tools/*/bin/sdkmanager "platforms;android-35" "build-tools;35.0.0" "platform-tools"
+          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platforms;android-35" "build-tools;35.0.0" "platform-tools" ||           $ANDROID_HOME/cmdline-tools/*/bin/sdkmanager "platforms;android-35" "build-tools;35.0.0" "platform-tools" || true
 
       - name: Install Node Dependencies
         run: npm install
@@ -62,14 +59,14 @@ jobs:
           cp android/app/build/outputs/apk/debug/app-debug.apk release-apk/LPG-Hisab-Kitab.apk
           ls -lh release-apk/
 
-      - name: Upload APK as GitHub Release (Direct .apk Download)
+      - name: Upload APK as GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v1.0
           name: "LPG Hisab Kitab v1.0 (Android APK)"
           body: |
             ### 📱 LPG Gas Cylinder Calculator Android APK
-            براہ راست APK ڈاؤن لوڈ کریں اور اپنے موبائل میں انسٹال کریں:
+            براہ راست APK ڈاؤن لوڈ کریں:
             - **LPG-Hisab-Kitab.apk**
             - 100% آف لائن سپورٹ
           files: release-apk/LPG-Hisab-Kitab.apk
