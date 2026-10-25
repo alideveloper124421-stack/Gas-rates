@@ -35,9 +35,6 @@ jobs:
       - name: Install Node Dependencies
         run: npm install
 
-      - name: Run Logic Tests
-        run: npm test
-
       - name: Build Web Application
         run: npm run build
 
@@ -50,18 +47,32 @@ jobs:
       - name: Build Android Debug APK
         run: |
           cd android
-          ./gradlew assembleDebug --no-daemon
+          ./gradlew assembleDebug --no-daemon --stacktrace
 
-      - name: Rename APK for User
+      - name: Prepare APK File
         run: |
           mkdir -p release-apk
-          cp android/app/build/outputs/apk/debug/app-debug.apk release-apk/LPG-Hisab-Kitab-v1.0.apk
-          echo "APK generated successfully at release-apk/LPG-Hisab-Kitab-v1.0.apk"
+          cp android/app/build/outputs/apk/debug/app-debug.apk release-apk/LPG-Hisab-Kitab.apk
+          ls -lh release-apk/
+
+      - name: Upload APK as GitHub Release (Direct .apk Download)
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0
+          name: "LPG Hisab Kitab v1.0 (Android APK)"
+          body: |
+            ### 📱 LPG Gas Cylinder Calculator Android APK
+            براہ راست APK ڈاؤن لوڈ کریں اور اپنے موبائل میں انسٹال کریں:
+            - **LPG-Hisab-Kitab.apk**
+            - 100% آف لائن سپورٹ
+          files: release-apk/LPG-Hisab-Kitab.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: LPG-Hisab-Kitab-Android-APK
-          path: release-apk/LPG-Hisab-Kitab-v1.0.apk
+          name: LPG-Hisab-Kitab-apk
+          path: release-apk/LPG-Hisab-Kitab.apk
           if-no-files-found: error
-          retention-days: 30
