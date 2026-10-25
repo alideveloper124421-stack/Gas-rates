@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">LPG Hisab Kitab</string>
+    <string name="title_activity_main">LPG Hisab Kitab</string>
+    <string name="package_name">com.lpghisab.gascalculator</string>
+    <string name="custom_url_scheme">com.lpghisab.gascalculator</string>
+</resources>
