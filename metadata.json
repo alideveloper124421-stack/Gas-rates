@@ -1,0 +1,6 @@
+{
+  "name": "LPG Gas Cylinder Rate & Bill Calculator",
+  "description": "LPG gas cylinder rate calculator and billing system with per-kg rate calculation, cylinder breakdown (35kg, 11.8kg, 45.4kg), grand total, Roman Urdu words, and offline receipt printing.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

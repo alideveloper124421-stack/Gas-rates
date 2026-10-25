@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Noto Sans Arabic';
+  src: url('/fonts/NotoSansArabic-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Noto Sans Arabic';
+  src: url('/fonts/NotoSansArabic-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  font-family: 'Plus Jakarta Sans', 'Noto Sans Arabic', 'Noto Nastaliq Urdu', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.font-urdu {
+  font-family: 'Noto Sans Arabic', 'Noto Nastaliq Urdu', 'Segoe UI', Tahoma, sans-serif;
+}
+
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  header, footer, #section-rate, #section-cylinders, #section-total {
+    display: none !important;
+  }
+
+  #printable-receipt {
+    display: block !important;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 16px !important;
+    border: none !important;
+  }
+}
